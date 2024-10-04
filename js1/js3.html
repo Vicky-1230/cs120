@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two nums smallest to largest</title>
+</head>
+<body>
+    <h1>Compare two numbers, result in the console.</h1>
+    <script>
+        // ask for two numbers
+        let num1 = Number(prompt("Give your first number to compare: "));
+        let num2 = Number(prompt("Give your second number to compare: "));
+
+        // compare function
+        function compare(num1, num2) {
+            if (num1 < num2) {
+                console.log(num1 + " " + num2);
+            } else {
+                console.log(num2 + " " + num1);
+            }
+        }
+
+        // call the function
+        compare(num1, num2);
+    </script>
+</body>

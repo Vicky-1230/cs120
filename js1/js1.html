@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Name and Children Prompt</title>
+</head>
+<body>
+    <h1>Name and Children</h1>
+    <script>
+        // Asking for the first and last name
+        let firstName = prompt("What is your first name?");
+        let lastName = prompt("What is your last name?");
+        
+        // Display full name in a popup
+        alert(`Your name is ${firstName} ${lastName}`);
+
+        // Asking for the number of children
+        let numChildren = prompt("How many children do you have? (number only)");
+
+        // Display num of children on the page
+        if (numChildren == 0) {
+            document.write("You have no children.")
+        } else if (numChildren == 1) {
+            document.write("You have 1 child.")
+        } else {
+            document.write("You have " + numChildren + "children.")
+        }
+    </script>
+</body>
+</html>

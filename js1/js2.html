@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fahrenheit and Celsius</title>
+</head>
+<body>
+    <h1>Fahrenheit and Celsius</h1>
+    <script>
+        // Fahrenheit to Celsius
+        let fah1 = prompt("Enter a value of temperature in Fahrenheit: ");
+        var cel1 = (fah1 - 32) * 5 / 9.0;
+        alert(`Converted to Celsius is ${cel1}.`);
+
+        // Celsius to Fahrenheit
+        let cel2 = prompt("Enter a value of temperature in Celsius: ");
+        var fah2 = cel2 * 9 / 5.0 + 32;
+        alert(`Converted to Fahrenheit is ${fah2}.`);
+    </script>
+</body>

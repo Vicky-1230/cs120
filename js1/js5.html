@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Times Table</title>
+</head>
+<body>
+    <h1>Times tables from 1 to 12.</h1>
+    <script>
+        function timesTable(a) {
+            for (n = 1; n < 13; n++) {
+                document.write(a + " × " + n + " = " + a * n + "<br>");
+            }
+        }
+        timesTable(3);
+        document.write("<hr>");
+        timesTable(7);
+        document.write("<hr>");
+        timesTable(11);
+    </script>
+</body>
