@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS2_3</title>
+    <style type="text/css">
+		html,body,input,select {font-size: 20px; padding: 4px; margin-bottom:4px;}
+		label{padding-right:8px}
+	</style>
+    <script language="javascript">
+        function speak(prefix) {
+            alert(prefix + " " + document.getElementById('name1').value);
+        }
+    </script>
+</head>
+<body>
+    <form name="form1">
+<br/><br />	
+    <label>Please enter your name: </label><input type='text' name='name1' id='name1'><br>
+    <input type="button" value = "Hello" onclick="speak('Hello')">
+    <input type="button" value = "Good Bye" onclick="speak('Good Bye')">
+    <input type="button" value = "Greetings" onclick="speak('Greetings')">
+    </form>
+</body>

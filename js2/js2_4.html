@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS2_4</title>
+    <style type="text/css">
+		html,body,input,select {font-size: 20px; padding: 4px; margin-bottom:4px;}
+		label{padding-right:8px}
+	</style>
+    <script language="javascript">
+        window.onload=function() {
+
+        document.getElementById("Hello").onclick=buttonClick;
+        document.getElementById("Good Bye").onclick=buttonClick;
+        document.getElementById("Greetings").onclick=buttonClick;
+
+        }
+
+        function buttonClick(e)
+        {
+        val = e.target.value;
+        alert(val + " " + document.getElementById('name1').value);
+        }
+
+    </script>
+</head>
+<body>
+    <form name="form1">
+<br/><br />	
+    <label>Please enter your name: </label><input type='text' name='name1' id='name1'><br>
+    <input type="button" value = "Hello" id="Hello">
+    <input type="button" value = "Good Bye" id="Good Bye">
+    <input type="button" value = "Greetings" id="Greetings">
+    </form>
+</body>
