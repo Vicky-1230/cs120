@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Song List from JSON</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .song {
+            background-color: rgba(126, 232, 51, 0.874);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .song h2 {
+            margin: 0 0 5px;
+            font-size: 20px;
+        }
+        .song p {
+            margin: 5px 0;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Song List from JSON</h1>
+    <div id="songList"></div>
+
+    <script>
+        $.get('https://vicky-1230.github.io/cs120/JSON/songs.json', function(data) {
+            var songList = document.getElementById("songList");
+
+            data.forEach(function(song) {
+                var songDiv = document.createElement('div');
+                songDiv.className = 'song';
+
+                var songInfo = `
+                    <h2>${song.title}</h2>
+                    <p><strong>Artist: </strong>${song.artist}</p>
+                    <p><strong>Genres: </strong>${song.genres.join(", ")}</p>
+                    <p><strong>Released: </strong>${song.year}</p>
+                `;
+
+                songDiv.innerHTML = songInfo;
+
+                songList.appendChild(songDiv);
+            })
+        })
+    </script>
+</body>
+</html>
