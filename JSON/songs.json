@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Bohemian Rhapsody",
+        "artist": "Queen",
+        "year": 1975,
+        "genres": ["Rock"]
+    }, 
+    {
+        "title": "Billie Jean",
+        "artist": "Michael Jackson",
+        "year": 1982,
+        "genres": ["Pop"]
+    },
+    {
+        "title": "Jolene",
+        "artist": "Dolly Parton",
+        "year": 1973,
+        "genres": ["Country"]
+    },
+    {
+        "title": "Hotel California",
+        "artist": "Eagles",
+        "year": 1976,
+        "genres": ["Rock"]
+    },
+    {
+        "title": "Smells Like Teen Spirit",
+        "artist": "Nirvana",
+        "year": 1991,
+        "genres": ["Rock", "Grunge"]
+    },
+    {
+        "title": "I Will Always Love You",
+        "artist": "Whitney Houston",
+        "year": 1992,
+        "genres": ["Pop", "Soul"]
+    },
+    {
+        "title": "Take Me Home, Country Roads",
+        "artist": "John Denver",
+        "year": 1971,
+        "genres": ["Country"]
+    },
+    {
+        "title": "Beat It",
+        "artist": "Michael Jackson",
+        "year": 1983,
+        "genres": ["Pop", "Rock"]
+    },
+    {
+        "title": "Rolling in the Deep",
+        "artist": "Adele",
+        "year": 2010,
+        "genres": ["Pop"]
+    },
+    {
+        "title": "The Dance",
+        "artist": "Garth Brooks",
+        "year": 1990,
+        "genres": ["Country"]
+    }
+]
