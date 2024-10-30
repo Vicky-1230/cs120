@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wordle Game</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .error, .game-over {
+            color: red;
+            font-size: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            border: 2px solid #000;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .textContent {
+            display: inline-block;
+            animation: float 1s ease-in-out infinite;
+            position: absolute;
+            top: 5%;
+            left: 37%;
+        }
+
+        .correct {
+            background-color: green;
+            color: white;
+        }
+
+        .wrong-place {
+            background-color: yellow;
+            color: black;
+        }
+
+        #guessInput {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #submitGuessButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #8045c4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #newGameButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #8045c4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #submitGuessButton:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wordle Game</h1>
+
+        <div id="board" class="board"></div>
+
+        <input type="text" id="guessInput" placeholder="Enter your guess word" maxlength="5">
+
+        <button id="submitGuessButton">Submit Guess</button>
+        <button id="newGameButton" style="display: none;">New Game</button>
+
+        <p id="error" class="error"></p>
+        
+        <div id="gameOverMessage" class="game-over"></div>
+    </div>
+
+    <script>
+        let currentRow = 0;
+        let targetWord = ""; 
+        let win = false;
+
+        // Fetch answer word
+        function fetchAnswerWord() {
+            fetch('https://random-word-api.vercel.app/api?words=1&length=5')
+                .then(response => response.json())
+                .then(data => {
+                    targetWord = data[0].toUpperCase();
+                    console.log("Answer Word:", targetWord);
+                })
+                .catch(error => console.log("Error fetching word:", error));
+        }
+
+        // Create board
+        const rows = [0, 1, 2, 3, 4, 5];
+        const columns = [0, 1, 2, 3, 4];
+        rows.forEach((rowNumber) => {
+            columns.forEach((colNumber) => {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.id = `cell-${rowNumber}-${colNumber}`;
+                document.getElementById('board').appendChild(cell);
+            });
+        });
+
+        // New game
+        function newGame() {
+            document.getElementById('newGameButton').style.display = "inline-block";
+            document.getElementById('newGameButton').addEventListener('click', function() {
+                location.reload();
+            })
+        }
+
+        // Stop game
+        function stopGame() {
+            // Disable the submit button, stop the animation, and offer a new game.
+            document.getElementById('submitGuessButton').disabled = true;
+            document.querySelectorAll('.textContent').forEach(text => {
+                text.style.animation = 'none';
+            });
+            newGame();
+        }
+
+        // Enabling submit the word by pressing 'Enter' key
+        document.getElementById('guessInput').addEventListener('keydown', function(event) {
+            if (event.key == 'Enter') {
+                document.getElementById('submitGuessButton').click();
+            }
+        })
+
+        // Guess button event handler
+        document.getElementById('submitGuessButton').addEventListener('click', function() {
+            const guessInput = document.getElementById('guessInput').value.replace(/\s+/g, '').toUpperCase();
+            const errorElement = document.getElementById('error');
+            errorElement.textContent = "";
+
+            if (guessInput.length == 5) {
+                // Used borad
+                for (let i = 0; i < 5; i++) {
+                    const cell = document.getElementById(`cell-${currentRow}-${i}`);
+                    cell.innerHTML = `<span class="textContent">${guessInput[i]}</span>`;
+
+                    if (guessInput[i] == targetWord[i]) {
+                        cell.classList.add("correct");
+                    } else if (targetWord.includes(guessInput[i])) {
+                        cell.classList.add("wrong-place");
+                    }
+                }
+
+                currentRow++;
+
+                // Right guess
+                if (guessInput == targetWord) {
+                    win = true;
+                    alert("Congratulations! You Win!");
+                    newGame();
+                    document.getElementById('guessInput').value = "";
+                    return;
+                }
+
+                // Game Over (Lose)
+                if (currentRow == 6 && win == false) {
+                    document.getElementById('gameOverMessage').textContent = 
+                    `Game Over! The correct word was: ${targetWord}`; 
+                    stopGame();
+                }
+
+                // Game Over (Win but reach 6 words limit.)
+                if (currentRow == 6 && win == true) {
+                    document.getElementById('gameOverMessage').textContent = 
+                    'Reached the words limit. Start a new game!';
+                    stopGame();
+                }                
+
+            } else {
+                errorElement.textContent = "Error: Please enter exactly 5 letters.";
+            }
+
+            // Empty the input box anyways
+            document.getElementById('guessInput').value = "";
+        });
+
+        // ReFetch after each round of game
+        fetchAnswerWord();
+    </script>
+</body>
+</html>
