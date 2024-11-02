@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto API</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-size: 36px;
+            line-height: 2;
+            font-weight: bolder;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: white;
+            text-align: center;
+            background-image: url(bitcoin.png);
+        }
+    </style>
+</head>
+<body>
+    <script lang="JavaScript">
+    let price = 0;
+
+    function fetchCryptoPrice(cur) {
+        fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${cur}`)
+            .then(response => response.json())
+            .then(data => {
+                price = data["bitcoin"][cur];
+                price = price.toLocaleString();
+                console.log("Price: ", price);
+                let curUpper = cur.toUpperCase();
+                document.getElementById("price").innerHTML += `1 BITCOIN = ${price} ${curUpper} <br>`;
+            })
+            .catch(error => console.log("Error fetching price:", error));
+    }
+
+    fetchCryptoPrice("cny");
+    fetchCryptoPrice("usd");
+    </script>
+
+    <h1>Current Price of Bitcoin (CNY)</h1>
+
+    <div id="price" class="price" style="background-color: rgba(128, 128, 128, 0.471)"></div>
+</body>
+</html>
