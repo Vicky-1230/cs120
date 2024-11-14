@@ -8,13 +8,13 @@
 <?php
     $n = (int)$_GET['n'];
     if ($n == 0) {
+        $fib = [];
+    } elseif ($n == 1) {
         $fib = [0];
-    } else if ($n == 1) {
-        $fib = [0, 1];
     } else {
         $fib = [0, 1];
         for ($i = 2; $i < $n; $i++) {
-            $fib[i] = $fib[$i - 1] + $fib[$i - 2];
+            $fib[$i] = $fib[$i - 1] + $fib[$i - 2];
         }
     }
 
